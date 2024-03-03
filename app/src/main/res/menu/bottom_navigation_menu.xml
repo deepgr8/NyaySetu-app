@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:enabled="true"
+        android:icon="@drawable/outline_home_24"
+        android:title="@string/home"/>
+    <item
+        android:id="@+id/advocate"
+        android:enabled="true"
+        android:icon="@drawable/baseline_account_circle_24"
+        android:title="@string/advocate"/>
+    <item
+        android:id="@+id/category"
+        android:enabled="true"
+        android:icon="@drawable/baseline_adjust_24"
+        android:title="@string/category"/>
+
+</menu>
