@@ -2,4 +2,5 @@
 <resources>
     <string name="advocate">Advocate</string>
     <string name="category">Category</string>
+    <string name="label1">Type,Talk</string>
 </resources>

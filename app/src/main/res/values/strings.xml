@@ -7,4 +7,6 @@
     <string name="Home_Fragment">HOME</string>
     <string name="Advocate_Fragment">ADVOCATE</string>
     <string name="Category_Fragment">CATEGORY</string>
+    <string name="label">Type , Talk</string>
+    <string name="label1">Type,Talk</string>
 </resources>
