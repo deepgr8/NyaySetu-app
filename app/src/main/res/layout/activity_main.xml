@@ -21,16 +21,19 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textField"
+        android:background="@drawable/message_type_shape"
         android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:hint="@string/label1"
+        android:layout_height="70dp"
+        android:hint="@string/Message"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
