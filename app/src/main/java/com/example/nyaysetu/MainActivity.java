@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Application;
 import android.os.Bundle;
@@ -31,9 +32,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 int itemId = menuItem.getItemId();
-                if(itemId == R.id.home){
-                    loadFragment(new HomeFragment() , false);
-                }else if (itemId == R.id.advocate){
+                if (itemId == R.id.advocate){
                     loadFragment(new AdvocateFragment() , false);
                 } else  {
                     loadFragment(new CategoryFragment() , false);
