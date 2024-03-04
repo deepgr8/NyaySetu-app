@@ -4,8 +4,5 @@
     <string name="advocate">Advocate</string>
     <string name="category">Category</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="Home_Fragment">HOME</string>
-    <string name="Advocate_Fragment">ADVOCATE</string>
-    <string name="Category_Fragment">CATEGORY</string>
-    <string name="Message">Type,Talk</string>
+    <string name="message">Type,  Talk\n</string>
 </resources>
