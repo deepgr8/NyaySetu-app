@@ -15,10 +15,9 @@ import android.widget.FrameLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.color.DynamicColors;
 import com.google.android.material.color.utilities.DynamicColor;
-import com.google.android.material.textfield.TextInputLayout;
 
 public class MainActivity extends AppCompatActivity {
-    private TextInputLayout textField;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
     }
 
    private void loadFragment(Fragment fragment , boolean isAppInitialized){
