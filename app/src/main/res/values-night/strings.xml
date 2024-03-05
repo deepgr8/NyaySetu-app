@@ -2,4 +2,6 @@
 <resources>
     <string name="advocate" translatable="false">Advocate</string>
     <string name="category" translatable="false">Category</string>
+    <string name="Category_Fragment">Category Fragment</string>
+    <string name="greetings">Greetings</string>
 </resources>

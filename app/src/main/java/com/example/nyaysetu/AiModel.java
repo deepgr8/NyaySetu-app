@@ -1,7 +1,6 @@
 package com.example.nyaysetu;
 
 import androidx.core.content.ContextCompat;
-
 import com.google.ai.client.generativeai.GenerativeModel;
 import com.google.ai.client.generativeai.java.GenerativeModelFutures;
 import com.google.ai.client.generativeai.type.Content;

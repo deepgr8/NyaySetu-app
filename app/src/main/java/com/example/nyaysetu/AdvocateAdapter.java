@@ -53,5 +53,6 @@ public class AdvocateAdapter extends RecyclerView.Adapter<AdvocateAdapter.ViewHo
             experience = itemView.findViewById(R.id.experienceOfAdvocate);
             rate = itemView.findViewById(R.id.ratingBar);
         }
+
     }
 }
