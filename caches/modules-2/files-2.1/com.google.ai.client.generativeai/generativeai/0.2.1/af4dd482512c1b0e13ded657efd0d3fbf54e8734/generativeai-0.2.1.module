@@ -1,0 +1,194 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.google.ai.client.generativeai",
+    "module": "generativeai",
+    "version": "0.2.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.4"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseVariantReleaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk8",
+          "version": {
+            "requires": "1.8.22"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "generativeai-0.2.1.aar",
+          "url": "generativeai-0.2.1.aar",
+          "size": 273835,
+          "sha512": "925faae83df34a12f75d2a2ae61ea58cc7f826abf01f385361530acfcdb1442dbabbe9c303a312ce6967055617d19b4e6e0aae7dc7a17e7706f2ca678d031dee",
+          "sha256": "812864f2168ba3e4ebe3e570401861b7810be24c9948db61c9cecb15f2fad840",
+          "sha1": "fffac469b2c4422379df21255055355337c201cf",
+          "md5": "89f738719cda63468656bc3cf999fc2f"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "io.ktor",
+          "module": "ktor-client-okhttp",
+          "version": {
+            "requires": "2.3.2"
+          }
+        },
+        {
+          "group": "io.ktor",
+          "module": "ktor-client-core",
+          "version": {
+            "requires": "2.3.2"
+          }
+        },
+        {
+          "group": "io.ktor",
+          "module": "ktor-client-content-negotiation",
+          "version": {
+            "requires": "2.3.2"
+          }
+        },
+        {
+          "group": "io.ktor",
+          "module": "ktor-serialization-kotlinx-json",
+          "version": {
+            "requires": "2.3.2"
+          }
+        },
+        {
+          "group": "io.ktor",
+          "module": "ktor-client-logging",
+          "version": {
+            "requires": "2.3.2"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-serialization-json",
+          "version": {
+            "requires": "1.5.1"
+          }
+        },
+        {
+          "group": "androidx.core",
+          "module": "core-ktx",
+          "version": {
+            "requires": "1.12.0"
+          }
+        },
+        {
+          "group": "org.slf4j",
+          "module": "slf4j-nop",
+          "version": {
+            "requires": "2.0.9"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-coroutines-android",
+          "version": {
+            "requires": "1.7.3"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-coroutines-reactive",
+          "version": {
+            "requires": "1.7.3"
+          }
+        },
+        {
+          "group": "org.reactivestreams",
+          "module": "reactive-streams",
+          "version": {
+            "requires": "1.0.3"
+          }
+        },
+        {
+          "group": "com.google.guava",
+          "module": "listenablefuture",
+          "version": {
+            "requires": "1.0"
+          }
+        },
+        {
+          "group": "androidx.concurrent",
+          "module": "concurrent-futures",
+          "version": {
+            "requires": "1.2.0-alpha02"
+          }
+        },
+        {
+          "group": "androidx.concurrent",
+          "module": "concurrent-futures-ktx",
+          "version": {
+            "requires": "1.2.0-alpha02"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk8",
+          "version": {
+            "requires": "1.8.22"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "generativeai-0.2.1.aar",
+          "url": "generativeai-0.2.1.aar",
+          "size": 273835,
+          "sha512": "925faae83df34a12f75d2a2ae61ea58cc7f826abf01f385361530acfcdb1442dbabbe9c303a312ce6967055617d19b4e6e0aae7dc7a17e7706f2ca678d031dee",
+          "sha256": "812864f2168ba3e4ebe3e570401861b7810be24c9948db61c9cecb15f2fad840",
+          "sha1": "fffac469b2c4422379df21255055355337c201cf",
+          "md5": "89f738719cda63468656bc3cf999fc2f"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseSourcePublication",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "generativeai-0.2.1-sources.jar",
+          "url": "generativeai-0.2.1-sources.jar",
+          "size": 36071,
+          "sha512": "e2423f0e48c79844b5576045d7b7894d200749d8f0cdd1d7e4e7ab07aae0ba728f4e9d612f3fabca11ae6d396c62a116a30d757f92d5c014e0353cc9f37dd77c",
+          "sha256": "d6e8410e00f549ef4c735c4851bc9b3291438f107dbd9ddc511bbcb45668004b",
+          "sha1": "d56dffbc8918f5c674e41fd3bda15fe7b8513fe7",
+          "md5": "642ffea45be1914a72105e9cacf4bd23"
+        }
+      ]
+    }
+  ]
+}
