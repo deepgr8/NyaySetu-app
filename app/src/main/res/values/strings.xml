@@ -5,4 +5,5 @@
     <string name="category">Category</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="message">Type,  Talk\n</string>
+    <string name="Category_Fragment">Category</string>
 </resources>

@@ -2,6 +2,7 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -9,35 +10,51 @@
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="80dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
+        android:layout_marginBottom="180dp"
+        android:layout_height="match_parent">
     </FrameLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textField"
-        android:background="@drawable/message_type_shape"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="70dp"
-        app:placeholderText="@string/message"
-        app:placeholderTextAppearance="@style/TextAppearance.AppCompat.Headline"
-        app:placeholderTextColor="@color/black"
-        android:paddingTop="16dp"
-        android:gravity="center"
-        android:paddingLeft="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/message_type_shape"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout">
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_weight="2"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="2dp"
+            android:layout_gravity="center"
+            android:layout_height="match_parent">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputQuery"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:paddingLeft="28dp"
+                android:paddingTop="5dp"
+                android:background="@android:color/transparent"
+                android:hint="@string/message"
+                android:fontFamily="sans-serif"
+                android:textColorHint="@color/black"
+                android:textSize="28dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    </com.google.android.material.textfield.TextInputLayout>
+        <ImageView
+            android:id="@+id/sendBtn"
+            android:layout_width="70dp"
+            android:layout_weight="1"
+            android:src="@drawable/baseline_send_24"
+            android:layout_marginRight="20dp"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -48,6 +65,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
