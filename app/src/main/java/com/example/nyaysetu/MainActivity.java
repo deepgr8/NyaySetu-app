@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             greeting.setText("Good Morning");
         } else if (hours>=12 && hours<17) {
             greeting.setText("Good afternoon");
-        } else if (hours>=17 && hours <20) {
+        } else  {
             greeting.setText("Good evening");
         }
 
