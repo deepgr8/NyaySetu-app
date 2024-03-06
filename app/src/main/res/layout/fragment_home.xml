@@ -67,5 +67,19 @@
             app:layout_constraintVertical_bias="1.0"
             app:placeholderTextColor="@color/black" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/send_query"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/md_theme_dark_primary"
+            app:icon="@drawable/baseline_arrow_upward_24"
+            app:iconSize="28dp"
+            app:iconGravity="textTop"
+            app:layout_constraintBottom_toBottomOf="@+id/textField"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.875"
+            app:layout_constraintStart_toStartOf="@+id/textField"
+            app:layout_constraintTop_toTopOf="@+id/textField" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

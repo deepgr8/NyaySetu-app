@@ -1,5 +1,6 @@
 package com.example.nyaysetu;
 
+import android.app.Application;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,13 +11,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.example.nyaysetu.databinding.FragmentHomeBinding;
+import com.google.android.material.color.DynamicColors;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 
 public class homeFragment extends Fragment {
-    FragmentHomeBinding homeBinding;
+
+     FragmentHomeBinding homeBinding;
 
     public homeFragment() {
         // Required empty public constructor
@@ -27,6 +30,7 @@ public class homeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        DynamicColors.applyToActivitiesIfAvailable(getActivity().getApplication());
         homeBinding = FragmentHomeBinding.inflate(inflater,container,false);
         ArrayList<String> languages = new ArrayList<>();
         languages.addAll(Arrays.asList("English","Assamese", "Bangla", "Bodo", "Dogri", "Gujarati", "Hindi", "Kashmiri", "Kannada", "Konkani", "Maithili", "Malayalam", "Manipuri", "Marathi", "Nepali", "Oriya", "Punjabi", "Tamil", "Telugu","Sanskrit" , "Santali", "Sindhi", "Urdu"));
