@@ -2,6 +2,7 @@ package com.example.nyaysetu;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,16 +34,14 @@ class QueryPreprocessing {
         QueryPreprocessing curr = root;
         for (int i = 0; i < key.length(); i++) {
             char ch = key.charAt(i);
-            assert curr != null;
             if (!curr.characterhashmapMap.containsKey(ch)) {
                 return false;
             }
             curr = curr.characterhashmapMap.get(ch);
         }
-        assert curr != null;
         return curr.isEnd;
     }
-    public  void checkTerm(Context context){
+    public static void checkTerm(Context context){
         sharedPreferences = context.getSharedPreferences("LegalTerms",Context.MODE_PRIVATE);
         boolean alreadypresent = sharedPreferences.getBoolean("Already",false);
         if (!alreadypresent){
@@ -50,6 +49,9 @@ class QueryPreprocessing {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean("Already",true);
             editor.apply();
+        }
+        else {
+            insertLegalTerms();
         }
     }
 
