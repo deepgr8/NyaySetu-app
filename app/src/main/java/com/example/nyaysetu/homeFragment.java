@@ -9,6 +9,7 @@ import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 import androidx.core.content.ContextCompat;
@@ -23,8 +24,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.nyaysetu.databinding.CustomSpinnerBinding;
 import com.example.nyaysetu.databinding.FragmentHomeBinding;
 import com.google.ai.client.generativeai.GenerativeModel;
 import com.google.ai.client.generativeai.java.GenerativeModelFutures;
@@ -47,6 +50,7 @@ public class homeFragment extends Fragment {
     private static final String apiKey = "AIzaSyBanBCnl7DjDbZ8MeSFN9rv290bEZ1qMSM";
     TextToSpeech textToSpeech;
     String spokenText=null;
+
     private static final int SPEECH_REQUEST_CODE = 0;
 
     public homeFragment() {
@@ -57,10 +61,9 @@ public class homeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         homeBinding = FragmentHomeBinding.inflate(inflater,container,false);
-        ArrayList<String> languages = new ArrayList<>();
-        languages.addAll(Arrays.asList("English","Assamese", "Bangla", "Bodo", "Dogri", "Gujarati", "Hindi", "Kashmiri", "Kannada", "Konkani", "Maithili", "Malayalam", "Manipuri", "Marathi", "Nepali", "Oriya", "Punjabi", "Tamil", "Telugu","Sanskrit" , "Santali", "Sindhi", "Urdu"));
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_item,languages);
-        homeBinding.selectLanguage.setAdapter(arrayAdapter);
+//        String[] languages  = {"English","Assamese", "Bangla", "Bodo", "Dogri", "Gujarati", "Hindi", "Kashmiri", "Kannada", "Konkani", "Maithili", "Malayalam", "Manipuri", "Marathi", "Nepali", "Oriya", "Punjabi", "Tamil", "Telugu","Sanskrit" , "Santali", "Sindhi", "Urdu"};
+//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_item,languages);
+//        homeBinding.selectLanguage.setAdapter(arrayAdapter);
         TextPaint paint = homeBinding.greeting.getPaint();
 //        Greeting section----------------------------
         Calendar calendar = Calendar.getInstance();
@@ -108,6 +111,16 @@ public class homeFragment extends Fragment {
         });
         return homeBinding.getRoot();
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        String[] languages  = {"English","Assamese", "Bangla", "Bodo", "Dogri", "Gujarati", "Hindi", "Kashmiri", "Kannada", "Konkani", "Maithili", "Malayalam", "Manipuri", "Marathi", "Nepali", "Oriya", "Punjabi", "Tamil", "Telugu","Sanskrit" , "Santali", "Sindhi", "Urdu"};
+        Spinner lan = view.findViewById(R.id.select_language);
+        CustomSpinnerAdapter customSpinnerAdapter = new CustomSpinnerAdapter(getContext() ,languages);
+        lan.setAdapter(customSpinnerAdapter);
+    }
+
     private void speechRecognizer(){
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
