@@ -68,6 +68,15 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.RECORD_AUDIO},MIC_PERMISSION_REQUEST_CODE);
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new homeFragment()).commit();
+        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if (i==TextToSpeech.SUCCESS){
+                    textToSpeech.setLanguage(new Locale("hi_"));
+                    textToSpeech.speak("नमस्ते, आप कैसे हैं",TextToSpeech.QUEUE_FLUSH,null);
+                }
+            }
+        });
 //        apply to all activities and fragments.....remainder
         QueryPreprocessing.checkTerm(this);
         DynamicColors.applyToActivitiesIfAvailable((Application) getApplicationContext());
@@ -80,10 +89,16 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 int itemId = menuItem.getItemId();
                 if (itemId == R.id.advocate){
+                    if (textToSpeech.isSpeaking()){
+                        textToSpeech.stop();
+                    }
                     temp = new AdvocateFragment();
                 } else if (itemId==R.id.home) {
                     temp = new homeFragment();
                 } else{
+                    if (textToSpeech.isSpeaking()){
+                        textToSpeech.stop();
+                    }
                     temp = new CategoryFragment();
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,temp).commit();

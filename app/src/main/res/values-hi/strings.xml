@@ -4,6 +4,6 @@
     <string name="home">घर</string>
     <string name="advocate">वकील</string>
     <string name="category">श्रेणी</string>
-    <string name="message">Type, talk\n</string>
+    <string name="message">Enter your query</string>
     <string name="Category_Fragment">Category Fragment</string>
 </resources>

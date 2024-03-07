@@ -9,6 +9,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <!-- TODO: Update blank fragment layout -->
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:progressBackgroundTint="@color/md_theme_dark_inversePrimary"
+            app:layout_constraintBottom_toTopOf="@+id/inputField"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/language"
             android:layout_width="30dp"
@@ -19,32 +30,47 @@
             app:layout_constraintHorizontal_bias="0.041"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.069" />
-
+            app:layout_constraintVertical_bias="0.037" />
         <Spinner
             android:id="@+id/select_language"
+            android:spinnerMode="dialog"
             android:layout_width="104dp"
             android:layout_height="26dp"
             app:layout_constraintBottom_toTopOf="@+id/greeting"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.099"
+            app:layout_constraintHorizontal_bias="0.03"
             app:layout_constraintStart_toEndOf="@+id/language"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.675" />
+            app:layout_constraintVertical_bias="0.468" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatar"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            app:civ_circle_background_color="@color/md_theme_light_inversePrimary"
+            android:src="@drawable/robot"
+            app:layout_constraintBottom_toBottomOf="@+id/select_language"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.94"
+            app:layout_constraintStart_toEndOf="@+id/select_language"
+            app:layout_constraintTop_toTopOf="@+id/select_language"
+            app:layout_constraintVertical_bias="0.714" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/greeting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Greeting"
-            android:textSize="44sp"
-            app:fontFamily="sans-serif"
+            android:letterSpacing="-0.03"
+            android:textStyle="bold"
+            android:textSize="35sp"
+            app:fontFamily="@font/noto_sans"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.122"
+            app:layout_constraintHorizontal_bias="0.172"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.153" />
+            app:layout_constraintVertical_bias="0.132" />
 
         <ScrollView
             android:id="@+id/scrollView"
@@ -66,6 +92,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="20dp"
+                android:textSize="18sp"
+
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toTopOf="@+id/inputField"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -87,6 +115,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/scrollView"
             app:layout_constraintVertical_bias="1.0" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputField"
             android:layout_width="match_parent"
@@ -96,39 +125,41 @@
             android:background="@drawable/message_type_shape"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.4"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/greeting"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
             app:placeholderTextColor="@color/black">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:orientation="horizontal">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputField1"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:gravity="start"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:background="@android:color/transparent"
+                    android:gravity="start|center"
                     android:hint="@string/message"
                     android:paddingLeft="25dp"
-                    android:paddingTop="19dp"
                     android:textAppearance="@style/Base.Theme.NyaySetu"
-                    android:textSize="25dp" />
+                    android:textSize="20dp" />
                 <ImageView
                     android:id="@+id/sendQuery"
-                    android:layout_width="40dp"
-                    android:layout_height="50dp"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/baseline_arrow_upward_24"
-                    />
+                    android:src="@drawable/baseline_arrow_upward_24" />
+
                 <ImageView
                     android:id="@+id/voiceBtn"
-                    android:layout_width="40dp"
-                    android:layout_height="50dp"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
                     android:layout_gravity="center"
                     android:layout_marginEnd="10dp"
                     android:src="@drawable/baseline_mic_24" />

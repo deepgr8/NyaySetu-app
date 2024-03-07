@@ -1,6 +1,7 @@
 package com.example.nyaysetu;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ public class AdvocateAdapter extends RecyclerView.Adapter<AdvocateAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull AdvocateAdapter.ViewHolder holder, int position) {
       AdvocateModel model = list.get(position);
+        Log.d("nnn", "onBindViewHolder: "+model.getName());
       holder.name.setText(model.getName());
       holder.experience.setText(model.getExperience());
     }

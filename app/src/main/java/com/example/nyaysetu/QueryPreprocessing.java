@@ -56,7 +56,7 @@ class QueryPreprocessing {
     }
 
     private static void insertLegalTerms() {
-        String[] legalTerms = {"law", "legal", "attorney", "lawyer", "court", "justice", "legal aid", "legal advice", "legislation", "constitution", "IPC", "crime", "criminal",
+        String[] legalTerms = {"law","section","legal", "attorney", "lawyer", "court", "justice", "legal aid", "legal advice", "legislation", "constitution", "IPC", "crime", "criminal",
                 "legal rights", "legal system", "civil rights", "criminal law", "legal assistance", "legal proceedings", "legal representation", "legal framework", "judicial system", "penal code", "legal recourse", "legal aid center", "legal documents",
                 "legal counsel", "legal jurisdiction", "legal responsibility", "legal defense", "legal remedies", "legal support", "legal dispute", "legal terminology", "legal obligations", "legal regulations", "legal principles", "legal consequences",
                 "legal procedures", "legal enforcement", "legal process", "legal protection","कानून", "वकील", "अदालत", "न्याय", "सहायता", "कानूनी", "अधिकार", "विधि", "संविधान", "भारतीय दंड संहिता (IPC)", "अपराध", "अपराधी", "कानूनी सलाह", "कानूनी मदद", "कानूनी सहायता", "न्यायिक प्रक्रिया",
