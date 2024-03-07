@@ -69,9 +69,11 @@ public class MainActivity extends AppCompatActivity {
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new homeFragment()).commit();
         textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            /** @noinspection deprecation*/
             @Override
             public void onInit(int i) {
                 if (i==TextToSpeech.SUCCESS){
+                    textToSpeech.setEngineByPackageName("com.google.android.tts");
                     textToSpeech.setLanguage(new Locale("hi_"));
                     textToSpeech.speak("नमस्ते, आप कैसे हैं",TextToSpeech.QUEUE_FLUSH,null);
                 }

@@ -16,7 +16,9 @@ import androidx.annotation.UiThread;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
 import android.text.Html;
 import android.text.Spanned;
@@ -51,11 +53,12 @@ import java.util.concurrent.ExecutionException;
 
 public class homeFragment extends Fragment {
     FragmentHomeBinding homeBinding;
+    SpeechRecognizer speechRecognizer;
 
     private static final String apiKey = "AIzaSyBanBCnl7DjDbZ8MeSFN9rv290bEZ1qMSM";
     TextToSpeech textToSpeech;
     String spokenText=null;
-    String cont = "tell me in ";
+    String cont = "explain me in ";
     String userlang=null;
 
 
@@ -135,16 +138,15 @@ public class homeFragment extends Fragment {
         homeBinding.voiceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                speechRecognizer();
+                speechReco();
             }
         });
         return homeBinding.getRoot();
     }
 
-    private void speechRecognizer(){
+    private void speechReco(){
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-//        intent.putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, true); // Prefer offline recognition
         startActivityForResult(intent,SPEECH_REQUEST_CODE);
     }
 
@@ -158,6 +160,7 @@ public class homeFragment extends Fragment {
                 spokenText = results.get(0).toLowerCase();
                 Log.d("sss", "onActivityResult: "+spokenText);
                 if (tokenizer(spokenText)){
+                    Toast.makeText(getContext(), "true", Toast.LENGTH_SHORT).show();
                     homeBinding.progressCircular.setVisibility(View.VISIBLE);
                     homeBinding.inputField1.setText(spokenText);
                     result(spokenText+cont+userlang,getContext());
@@ -182,10 +185,12 @@ public class homeFragment extends Fragment {
     private void talkback(String res){
 
         textToSpeech = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
+            /** @noinspection deprecation*/
             @Override
             public void onInit(int i) {
                 if (i==TextToSpeech.SUCCESS){
-                    textToSpeech.setLanguage(new Locale("hi_","IN"));
+                    textToSpeech.setEngineByPackageName("com.google.android.tts");
+                    textToSpeech.setLanguage(new Locale("hi_"));
                     textToSpeech.speak(res,TextToSpeech.QUEUE_FLUSH,null);
                 }
             }
