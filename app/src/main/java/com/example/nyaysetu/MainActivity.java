@@ -32,6 +32,7 @@ import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.nyaysetu.databinding.FragmentAdvocateBinding;
 import com.google.ai.client.generativeai.GenerativeModel;
 import com.google.ai.client.generativeai.java.GenerativeModelFutures;
 import com.google.ai.client.generativeai.type.Content;
@@ -54,6 +55,7 @@ import java.util.concurrent.Executor;
 
 public class MainActivity extends AppCompatActivity {
     MaterialTextView greeting;
+
     Executor executor = newSingleThreadExecutor();
     Spinner select_language;
     private static final String apiKey = "AIzaSyBanBCnl7DjDbZ8MeSFN9rv290bEZ1qMSM";

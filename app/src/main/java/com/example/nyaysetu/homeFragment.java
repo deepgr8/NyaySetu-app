@@ -150,7 +150,7 @@ public class homeFragment extends Fragment {
         startActivityForResult(intent,SPEECH_REQUEST_CODE);
     }
 
-    /** @noinspection deprecation*/
+//     @noinspection deprecation
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -168,7 +168,7 @@ public class homeFragment extends Fragment {
             }
         }
     }
-    /** @noinspection deprecation*/
+//     @noinspection deprecation
     private void setresult(String userinput, String result){
         result = result.replace("*", "");
         String[] sentences = result.split("\\.|:");
@@ -185,7 +185,7 @@ public class homeFragment extends Fragment {
     private void talkback(String res){
 
         textToSpeech = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
-            /** @noinspection deprecation*/
+//             @noinspection deprecation
             @Override
             public void onInit(int i) {
                 if (i==TextToSpeech.SUCCESS){

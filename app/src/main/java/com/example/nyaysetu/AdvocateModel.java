@@ -1,8 +1,12 @@
 package com.example.nyaysetu;
 
+import android.widget.Button;
+import android.widget.RatingBar;
+
 public class AdvocateModel {
     String name;
-    int experience;
+    String experience;
+    float ratingBar;
 
     public String getName() {
         return name;
@@ -12,16 +16,26 @@ public class AdvocateModel {
         this.name = name;
     }
 
-    public int getExperience() {
+    public String getExperience() {
         return experience;
     }
 
-    public void setExperience(int experience) {
+    public void setExperience(String experience) {
         this.experience = experience;
     }
 
-    public AdvocateModel(String name, int experience) {
+    public float getRatingBar() {
+        return ratingBar;
+    }
+
+    public void setRatingBar(float ratingBar) {
+        this.ratingBar = ratingBar;
+    }
+
+
+    public AdvocateModel(String name, String experience, float ratingBar) {
         this.name = name;
         this.experience = experience;
+        this.ratingBar = ratingBar;
     }
 }
