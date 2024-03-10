@@ -26,6 +26,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
@@ -69,18 +70,7 @@ public class MainActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this,Manifest.permission.RECORD_AUDIO)!=PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.RECORD_AUDIO},MIC_PERMISSION_REQUEST_CODE);
         }
-        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new homeFragment()).commit();
-        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
-            /** @noinspection deprecation*/
-            @Override
-            public void onInit(int i) {
-                if (i==TextToSpeech.SUCCESS){
-                    textToSpeech.setEngineByPackageName("com.google.android.tts");
-                    textToSpeech.setLanguage(new Locale("hi_"));
-                    textToSpeech.speak("नमस्ते, आप कैसे हैं",TextToSpeech.QUEUE_FLUSH,null);
-                }
-            }
-        });
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new homeFragment()).addToBackStack(null).commit();
 //        apply to all activities and fragments.....remainder
         QueryPreprocessing.checkTerm(this);
         DynamicColors.applyToActivitiesIfAvailable((Application) getApplicationContext());
@@ -93,19 +83,35 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 int itemId = menuItem.getItemId();
                 if (itemId == R.id.advocate){
-                    if (textToSpeech.isSpeaking()){
-                        textToSpeech.stop();
-                    }
                     temp = new AdvocateFragment();
                 } else if (itemId==R.id.home) {
                     temp = new homeFragment();
+                    textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                        @Override
+                        public void onInit(int i) {
+                            if (textToSpeech.isSpeaking()){
+                                textToSpeech.stop();
+                            }
+                            else{
+                                Toast.makeText(getApplicationContext(), "continue", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 } else{
-                    if (textToSpeech.isSpeaking()){
-                        textToSpeech.stop();
-                    }
                     temp = new CategoryFragment();
+                    textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                        @Override
+                        public void onInit(int i) {
+                            if (textToSpeech.isSpeaking()){
+                                textToSpeech.stop();
+                            }
+                            else{
+                                Log.d("s", "onInit: "+"continue");
+                            }
+                        }
+                    });
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,temp).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,temp).addToBackStack(null).commit();
                 return true;
             }
         });
