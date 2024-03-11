@@ -10,6 +10,7 @@ import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -45,12 +46,12 @@ public class homeFragment extends Fragment {
     FragmentHomeBinding homeBinding;
     private static final String apiKey = "AIzaSyBanBCnl7DjDbZ8MeSFN9rv290bEZ1qMSM";
     TextToSpeech textToSpeech;
-    String spokenText=null;
+    String spokenText = null;
     String cont = "explain me in ";
-    String userlang=null;
+    String userlang = null;
 
 
-    String languages [] = {"English","Assamese", "Bangla","Gujarati", "Hindi", "Kannada","Malayalam", "Marathi", "Nepali", "Oriya", "Punjabi", "Tamil", "Telugu"};
+    String languages[] = {"English", "Assamese", "Bangla", "Gujarati", "Hindi", "Kannada", "Malayalam", "Marathi", "Nepali", "Oriya", "Punjabi", "Tamil", "Telugu"};
     private static final int SPEECH_REQUEST_CODE = 0;
 
     public homeFragment() {
@@ -61,8 +62,9 @@ public class homeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        homeBinding = FragmentHomeBinding.inflate(inflater,container,false);
+        homeBinding = FragmentHomeBinding.inflate(inflater, container, false);
         TextPaint paint = homeBinding.greeting.getPaint();
+        setRetainInstance(true);
         homeBinding.scrollView.setVisibility(View.INVISIBLE);
         homeBinding.mute.setOnClickListener(view -> {
             if (textToSpeech != null) {
@@ -71,37 +73,36 @@ public class homeFragment extends Fragment {
                     textToSpeech.speak("", TextToSpeech.QUEUE_FLUSH, null); // Flush queue
                 }
             } else {
-                Toast.makeText(getContext(), "continue",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "continue", Toast.LENGTH_SHORT).show();
             }
         });
 //        Greeting section----------------------------
         spinnermethod();
         Calendar calendar = Calendar.getInstance();
         int hours = calendar.get(Calendar.HOUR_OF_DAY);
-        if (hours >0 && hours<12){
+        if (hours > 0 && hours < 12) {
             homeBinding.greeting.setText("Good Morning");
-        } else if (hours>=12 && hours<17) {
+        } else if (hours >= 12 && hours < 17) {
             homeBinding.greeting.setText("Good afternoon");
-        } else  {
+        } else {
             homeBinding.greeting.setText("Good evening");
         }
-        float width=paint.measureText((String) homeBinding.greeting.getText());
-        Shader textshader = new LinearGradient(0,0,width,homeBinding.greeting.getTextSize(),new int[]{
+        float width = paint.measureText((String) homeBinding.greeting.getText());
+        Shader textshader = new LinearGradient(0, 0, width, homeBinding.greeting.getTextSize(), new int[]{
                 Color.parseColor("#5E7FE7"),
                 Color.parseColor("#B36DA7"),
                 Color.parseColor("#D96570"),
-        },null,Shader.TileMode.CLAMP);
+        }, null, Shader.TileMode.CLAMP);
         homeBinding.greeting.getPaint().setShader(textshader);
         homeBinding.sendQuery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (homeBinding.inputField1.getText()!=null){
-                    if (tokenizer(homeBinding.inputField1.getText().toString())){
+                if (homeBinding.inputField1.getText() != null) {
+                    if (tokenizer(homeBinding.inputField1.getText().toString())) {
                         homeBinding.recentitemsContainer.setVisibility(View.INVISIBLE);
                         homeBinding.progressCircular.setVisibility(View.VISIBLE);
-                        result(homeBinding.inputField1.getText().toString()+cont+userlang,getContext());
-                    }
-                    else{
+                        result(homeBinding.inputField1.getText().toString() + cont + userlang, getContext());
+                    } else {
                         homeBinding.progressCircular.setVisibility(View.INVISIBLE);
                         failedToken();
                     }
@@ -112,6 +113,7 @@ public class homeFragment extends Fragment {
 
         homeBinding.selectLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             private int previousSelection = -1; // Initialize with an invalid index
+
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i != previousSelection) { // Check for actual change
@@ -139,38 +141,42 @@ public class homeFragment extends Fragment {
     }
 
 
-
-    private void speechReco(){
+    private void speechReco() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        startActivityForResult(intent,SPEECH_REQUEST_CODE);
+
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        startActivityForResult(intent, SPEECH_REQUEST_CODE);
     }
 
-//     @noinspection deprecation
+    //     @noinspection deprecation
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == SPEECH_REQUEST_CODE && resultCode == RESULT_OK){
+        if (requestCode == SPEECH_REQUEST_CODE && resultCode == RESULT_OK) {
             List<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             if (results != null && !results.isEmpty()) {
                 spokenText = results.get(0).toLowerCase();
-                Log.d("sss", "onActivityResult: "+spokenText);
-                if (tokenizer(spokenText)){
+                Log.d("sss", "onActivityResult: " + spokenText);
+                if (tokenizer(spokenText)) {
                     homeBinding.recentitemsContainer.setVisibility(View.INVISIBLE);
                     homeBinding.progressCircular.setVisibility(View.VISIBLE);
                     homeBinding.inputField1.setText(spokenText);
-                    result(spokenText+cont+userlang,getContext());
-                }
-                else{
+                    result(spokenText + cont + userlang, getContext());
+                } else {
                     homeBinding.progressCircular.setVisibility(View.INVISIBLE);
                     failedToken();
                 }
             }
         }
     }
-//     @noinspection deprecation
-    private void setresult(String userinput, String result){
+
+    //     @noinspection deprecation
+    private void setresult(String userinput, String result) {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("data", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("d", result);
+        editor.apply();
+        editor.commit();
         result = result.replace("*", "");
         String[] sentences = result.split("\\.|:");
         String formattedResult = String.join("<br><br>", sentences);
@@ -183,12 +189,13 @@ public class homeFragment extends Fragment {
         talkback(result);
 
     }
-    private void talkback(String res){
+
+    private void talkback(String res) {
         String setup = "";
-        String langCode []= {"en_IN","as_IN","bn_IN","gu_IN","hi_IN","kn_IN","ml_IN","mr_IN","ne_IN","or_IN","pa_IN","ta_IN","te_IN"};
+        String langCode[] = {"en_IN", "as_IN", "bn_IN", "gu_IN", "hi_IN", "kn_IN", "ml_IN", "mr_IN", "ne_IN", "or_IN", "pa_IN", "ta_IN", "te_IN"};
         for (int i = 0; i < languages.length; i++) {
-            if (languages[i].equals(userlang)){
-                setup=langCode[i];
+            if (languages[i].equals(userlang)) {
+                setup = langCode[i];
             }
         }
         String finalSetup = setup;
@@ -197,32 +204,33 @@ public class homeFragment extends Fragment {
                 //             @noinspection deprecation
                 @Override
                 public void onInit(int i) {
-                    if (i==TextToSpeech.SUCCESS){
+                    if (i == TextToSpeech.SUCCESS) {
                         textToSpeech.setPitch(-0.5f);
                         textToSpeech.setEngineByPackageName("com.google.android.tts");
                         textToSpeech.setLanguage(new Locale(finalSetup));
-                        textToSpeech.speak(res,TextToSpeech.QUEUE_ADD,null);
+                        textToSpeech.speak(res, TextToSpeech.QUEUE_ADD, null);
                     }
                 }
             });
-        }catch (ExceptionInInitializerError error){
+        } catch (ExceptionInInitializerError error) {
             Toast.makeText(getContext(), "Try again", Toast.LENGTH_SHORT).show();
         }
     }
-    public static boolean tokenizer(String prompt){
+
+    public static boolean tokenizer(String prompt) {
         boolean res = false;
-        StringTokenizer stringTokenizer= new StringTokenizer(prompt);
-        while(stringTokenizer.hasMoreTokens()){
+        StringTokenizer stringTokenizer = new StringTokenizer(prompt);
+        while (stringTokenizer.hasMoreTokens()) {
             String word = stringTokenizer.nextToken();
-            if (QueryPreprocessing.search(word)){
+            if (QueryPreprocessing.search(word)) {
                 res = true;
             }
         }
         return res;
     }
 
-    public  void result(String userQuery, Context context){
-        GenerativeModel gm  = new GenerativeModel("gemini-pro",apiKey);
+    public void result(String userQuery, Context context) {
+        GenerativeModel gm = new GenerativeModel("gemini-pro", apiKey);
         GenerativeModelFutures modelFutures = GenerativeModelFutures.from(gm);
         Content content = new Content.Builder()
                 .addText(userQuery)
@@ -233,7 +241,7 @@ public class homeFragment extends Fragment {
             @Override
             public void onSuccess(GenerateContentResponse result) {
                 promptResult[0] = result.getText();
-                setresult(userQuery,promptResult[0]);
+                setresult(userQuery, promptResult[0]);
             }
 
             @Override
@@ -244,44 +252,45 @@ public class homeFragment extends Fragment {
         }, context.getMainExecutor());
     }
 
-    private void spinnermethod(){
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(), com.google.android.material.R.layout.support_simple_spinner_dropdown_item,languages);
+    private void spinnermethod() {
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(), com.google.android.material.R.layout.support_simple_spinner_dropdown_item, languages);
         arrayAdapter.setDropDownViewResource(com.google.android.material.R.layout.support_simple_spinner_dropdown_item);
         homeBinding.selectLanguage.setAdapter(arrayAdapter);
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("Lang",Context.MODE_PRIVATE);
-        String la = sharedPreferences.getString("l","");
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("Lang", Context.MODE_PRIVATE);
+        String la = sharedPreferences.getString("l", "");
         int index = getindex(la);
         userlang = languages[index];
-        Log.d("kkk", "spinnermethod: "+userlang);
+        Log.d("kkk", "spinnermethod: " + userlang);
         homeBinding.selectLanguage.setSelection(index);
     }
-    public int getindex(String lan){
+
+    public int getindex(String lan) {
         int index = 0;
         for (int i = 0; i < languages.length; i++) {
-            if (languages[i].equals(lan)){
+            if (languages[i].equals(lan)) {
                 index = i;
                 return index;
             }
         }
         return index;
     }
-    public void failedToken(){
+
+    public void failedToken() {
         homeBinding.inputField.setHint(R.string.message);
-        if (userlang.equals(languages[0])){
+        if (userlang.equals(languages[0])) {
             textToSpeech = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
                 @Override
                 public void onInit(int i) {
                     textToSpeech.setLanguage(new Locale("en_IN"));
-                    textToSpeech.speak("I'm sorry, I'm designed only for legal queries",TextToSpeech.QUEUE_FLUSH,null);
+                    textToSpeech.speak("I'm sorry, I'm designed only for legal queries", TextToSpeech.QUEUE_FLUSH, null);
                 }
             });
-        }
-        else {
+        } else {
             textToSpeech = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
                 @Override
                 public void onInit(int i) {
                     textToSpeech.setLanguage(new Locale("hi_IN"));
-                    textToSpeech.speak("मुझे क्षमा करे मैं सिर्फ क़ानूनी जवाब देने के लिए बनाई गई हूँ|",TextToSpeech.QUEUE_FLUSH,null);
+                    textToSpeech.speak("मुझे क्षमा करे मैं सिर्फ क़ानूनी जवाब देने के लिए बनाई गई हूँ|", TextToSpeech.QUEUE_FLUSH, null);
                 }
             });
         }

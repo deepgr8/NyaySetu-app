@@ -4,4 +4,9 @@
     <string name="category" translatable="false">Category</string>
     <string name="Category_Fragment">Category Fragment</string>
     <string name="greetings">Greetings</string>
+    <string name="get_otp">Get Otp</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="phone_number">Phone number...</string>
+    <string name="please_enter_a_valid_number">Please enter a valid number</string>
+    <string name="or_continue_with_google_account">Or continue with google account</string>
 </resources>

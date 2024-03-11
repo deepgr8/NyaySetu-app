@@ -6,5 +6,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="message">Enter your query</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="get_otp">Get Otp</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="phone_number">Phone number...</string>
+    <string name="default_web_client_id">351368719023-u5i7tf3bassci0fvegjsihfq88i5ijb7.apps.googleusercontent.com</string>
+    <string name="please_enter_a_valid_number">Please enter a valid number</string>
+    <string name="or_continue_with_google_account">Or continue with google account</string>
 </resources>

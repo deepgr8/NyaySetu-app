@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "351368719023",
+    "project_id": "nyaysetu-c6500",
+    "storage_bucket": "nyaysetu-c6500.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351368719023:android:1bf88df1c58fca8bfb025a",
+        "android_client_info": {
+          "package_name": "com.example.nyaysetu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8emMjU5Okl00k-Z0a7TpjwIffhj7d5Do"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
