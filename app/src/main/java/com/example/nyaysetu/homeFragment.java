@@ -32,20 +32,32 @@ import com.google.ai.client.generativeai.GenerativeModel;
 import com.google.ai.client.generativeai.java.GenerativeModelFutures;
 import com.google.ai.client.generativeai.type.Content;
 import com.google.ai.client.generativeai.type.GenerateContentResponse;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.android.material.textview.MaterialTextView;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 public class homeFragment extends Fragment {
     FragmentHomeBinding homeBinding;
     private static final String apiKey = "AIzaSyBanBCnl7DjDbZ8MeSFN9rv290bEZ1qMSM";
     TextToSpeech textToSpeech;
+    private DatabaseReference databaseReference;
+    private List<String> recentQueries;
     String spokenText = null;
     String cont = "explain me in ";
     String userlang = null;
@@ -64,15 +76,15 @@ public class homeFragment extends Fragment {
         // Inflate the layout for this fragment
         homeBinding = FragmentHomeBinding.inflate(inflater, container, false);
         TextPaint paint = homeBinding.greeting.getPaint();
+        recentQueries = new ArrayList<>();
+        checkForQueries();
         setRetainInstance(true);
         homeBinding.scrollView.setVisibility(View.INVISIBLE);
         homeBinding.mute.setOnClickListener(view -> {
-            if (textToSpeech != null) {
-                if (textToSpeech.isSpeaking()) { // Optional check
+                if (textToSpeech.isSpeaking() && textToSpeech!=null) { // Optional check
                     textToSpeech.stop();
-                    textToSpeech.speak("", TextToSpeech.QUEUE_FLUSH, null); // Flush queue
                 }
-            } else {
+                else{
                 Toast.makeText(getContext(), "continue", Toast.LENGTH_SHORT).show();
             }
         });
@@ -81,11 +93,11 @@ public class homeFragment extends Fragment {
         Calendar calendar = Calendar.getInstance();
         int hours = calendar.get(Calendar.HOUR_OF_DAY);
         if (hours > 0 && hours < 12) {
-            homeBinding.greeting.setText("Good Morning");
+            homeBinding.greeting.setText(getString(R.string.good_morning));
         } else if (hours >= 12 && hours < 17) {
-            homeBinding.greeting.setText("Good afternoon");
+            homeBinding.greeting.setText(getString(R.string.good_afternoon));
         } else {
-            homeBinding.greeting.setText("Good evening");
+            homeBinding.greeting.setText(getString(R.string.good_evening));
         }
         float width = paint.measureText((String) homeBinding.greeting.getText());
         Shader textshader = new LinearGradient(0, 0, width, homeBinding.greeting.getTextSize(), new int[]{
@@ -94,18 +106,15 @@ public class homeFragment extends Fragment {
                 Color.parseColor("#D96570"),
         }, null, Shader.TileMode.CLAMP);
         homeBinding.greeting.getPaint().setShader(textshader);
-        homeBinding.sendQuery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (homeBinding.inputField1.getText() != null) {
-                    if (tokenizer(homeBinding.inputField1.getText().toString())) {
-                        homeBinding.recentitemsContainer.setVisibility(View.INVISIBLE);
-                        homeBinding.progressCircular.setVisibility(View.VISIBLE);
-                        result(homeBinding.inputField1.getText().toString() + cont + userlang, getContext());
-                    } else {
-                        homeBinding.progressCircular.setVisibility(View.INVISIBLE);
-                        failedToken();
-                    }
+        homeBinding.sendQuery.setOnClickListener(view -> {
+            if (homeBinding.inputField1.getText() != null) {
+                if (tokenizer(homeBinding.inputField1.getText().toString())) {
+                    homeBinding.recentitemsContainer.setVisibility(View.INVISIBLE);
+                    homeBinding.progressCircular.setVisibility(View.VISIBLE);
+                    result(homeBinding.inputField1.getText().toString() + cont + userlang,getContext());
+                } else {
+                    homeBinding.progressCircular.setVisibility(View.INVISIBLE);
+                    failedToken();
                 }
             }
         });
@@ -169,6 +178,42 @@ public class homeFragment extends Fragment {
             }
         }
     }
+    private void checkForQueries() {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        String email = currentUser.getEmail();
+        String username = email.replace("@gmail.com", "");
+        if (currentUser != null) {
+            databaseReference = FirebaseDatabase.getInstance().getReference()
+                    .child("Users")
+                    .child(username)
+                    .child("recents");
+
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        List<String> userInputList = new ArrayList<>();
+                        for (DataSnapshot querySnapshot : dataSnapshot.getChildren()) {
+                            Map<String, Object> queryMap = (Map<String, Object>) querySnapshot.getValue();
+                            if (queryMap != null && queryMap.containsKey("userInput")) {
+                                String userInput = (String) queryMap.get("userInput");
+                                String newInput = userInput.replace(cont+userlang," ");
+                                userInputList.add(newInput);
+                            }
+                        }
+                        updateUi(userInputList);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle error
+                }
+            });
+        }
+
+    }
 
     //     @noinspection deprecation
     private void setresult(String userinput, String result) {
@@ -186,13 +231,49 @@ public class homeFragment extends Fragment {
         homeBinding.mute.setVisibility(View.VISIBLE);
         homeBinding.result.setText(formattedSpannedText);
         homeBinding.progressCircular.setVisibility(View.INVISIBLE);
+        storeRecent(userinput,result);
         talkback(result);
 
     }
 
+    private void storeRecent(String userinput, String result) {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String email = firebaseAuth.getCurrentUser().getEmail();
+        String username = email.replace("@gmail.com", "");
+        if (username!=null){
+            databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(username).child("recents");
+            String queryKey = databaseReference.push().getKey();
+            Map<String, Object> recentMap = new HashMap<>();
+            recentMap.put("userInput", userinput);
+            recentMap.put("result", result);
+            databaseReference.child(queryKey).setValue(recentMap);
+        }
+    }
+
+    private void updateUi(List<String> recentQueries) {
+        if (recentQueries.size() == 1) {
+            homeBinding.container3.setVisibility(View.INVISIBLE);
+            homeBinding.container2.setVisibility(View.INVISIBLE);
+            homeBinding.recent1.setText(recentQueries.get(recentQueries.size()-1));
+
+        }
+        if (recentQueries.size() == 2) {
+            homeBinding.container3.setVisibility(View.INVISIBLE);
+            homeBinding.recent1.setText(recentQueries.get(recentQueries.size()-1));
+            homeBinding.recent2.setText(recentQueries.get(recentQueries.size()- 2));
+        }
+        if (recentQueries.size() >= 3) {
+            homeBinding.recent1.setText(recentQueries.get(recentQueries.size()-1));
+            homeBinding.recent2.setText(recentQueries.get(recentQueries.size()- 2));
+            homeBinding.recent3.setText(recentQueries.get(recentQueries.size()-3));
+        }
+
+    }
+
+
     private void talkback(String res) {
         String setup = "";
-        String langCode[] = {"en_IN", "as_IN", "bn_IN", "gu_IN", "hi_IN", "kn_IN", "ml_IN", "mr_IN", "ne_IN", "or_IN", "pa_IN", "ta_IN", "te_IN"};
+        String[] langCode = {"en_IN", "as_IN", "bn_IN", "gu_IN", "hi_IN", "kn_IN", "ml_IN", "mr_IN", "ne_IN", "or_IN", "pa_IN", "ta_IN", "te_IN"};
         for (int i = 0; i < languages.length; i++) {
             if (languages[i].equals(userlang)) {
                 setup = langCode[i];
@@ -200,16 +281,13 @@ public class homeFragment extends Fragment {
         }
         String finalSetup = setup;
         try {
-            textToSpeech = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
-                //             @noinspection deprecation
-                @Override
-                public void onInit(int i) {
-                    if (i == TextToSpeech.SUCCESS) {
-                        textToSpeech.setPitch(-0.5f);
-                        textToSpeech.setEngineByPackageName("com.google.android.tts");
-                        textToSpeech.setLanguage(new Locale(finalSetup));
-                        textToSpeech.speak(res, TextToSpeech.QUEUE_ADD, null);
-                    }
+            //             @noinspection deprecation
+            textToSpeech = new TextToSpeech(getContext(), i -> {
+                if (i == TextToSpeech.SUCCESS) {
+                    textToSpeech.setPitch(-0.5f);
+                    textToSpeech.setEngineByPackageName("com.google.android.tts");
+                    textToSpeech.setLanguage(new Locale(finalSetup));
+                    textToSpeech.speak(res, TextToSpeech.QUEUE_ADD, null);
                 }
             });
         } catch (ExceptionInInitializerError error) {
@@ -293,6 +371,46 @@ public class homeFragment extends Fragment {
                     textToSpeech.speak("मुझे क्षमा करे मैं सिर्फ क़ानूनी जवाब देने के लिए बनाई गई हूँ|", TextToSpeech.QUEUE_FLUSH, null);
                 }
             });
+        }
+    }
+    public void showdataa(){
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        String email = currentUser.getEmail();
+        String username = email.replace("@gmail.com", "");
+        if (currentUser != null) {
+            databaseReference = FirebaseDatabase.getInstance().getReference()
+                    .child("Users")
+                    .child(username)
+                    .child("recents");
+
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        List<String> userResultList = new ArrayList<>();
+                        for (DataSnapshot querySnapshot : dataSnapshot.getChildren()) {
+                            Map<String, Object> queryMap = (Map<String, Object>) querySnapshot.getValue();
+                            if (queryMap != null && queryMap.containsKey("result")) {
+                                String userInput = (String) queryMap.get("result");
+                                userResultList.add(userInput);
+                            }
+                        }
+                        updateUimain(userResultList);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle error
+                }
+            });
+        }
+    }
+    public void updateUimain(List<String> userInputList) {
+        if (homeBinding != null && homeBinding.scrollView != null) {
+            homeBinding.scrollView.setVisibility(View.VISIBLE);
+            homeBinding.result.setText(userInputList.get(0));
         }
     }
 }

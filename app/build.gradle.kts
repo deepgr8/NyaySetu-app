@@ -10,6 +10,10 @@ android {
         dataBinding = true
         viewBinding = true
     }
+    packagingOptions{
+        exclude("META-INF/LICENSE.md")
+        exclude("META-INF/LICENSE-notice.md")
+    }
 
     defaultConfig {
         applicationId = "com.example.nyaysetu"

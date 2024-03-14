@@ -68,10 +68,10 @@
             app:fontFamily="@font/noto_sans"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.092"
+            app:layout_constraintHorizontal_bias="0.054"
             app:layout_constraintStart_toStartOf="@+id/language"
             app:layout_constraintTop_toBottomOf="@+id/language"
-            app:layout_constraintVertical_bias="0.047" />
+            app:layout_constraintVertical_bias="0.041" />
 
         <LinearLayout
             android:id="@+id/recentitemsContainer"
@@ -99,8 +99,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="30dp"
-                    android:text="recent" />
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"
+                     />
             </LinearLayout>
 
             <LinearLayout
@@ -120,8 +122,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="30dp"
-                    android:text="recent" />
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -140,8 +143,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="30dp"
-                    android:text="recent" />
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"/>
             </LinearLayout>
         </LinearLayout>
         <ScrollView

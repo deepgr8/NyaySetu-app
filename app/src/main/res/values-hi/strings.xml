@@ -11,4 +11,7 @@
     <string name="phone_number">Phone number...</string>
     <string name="please_enter_a_valid_number">Please enter a valid number</string>
     <string name="or_continue_with_google_account">Or continue with google account</string>
+    <string name="good_morning">Good Morning</string>
+    <string name="good_afternoon">Good afternoon</string>
+    <string name="good_evening">Good evening</string>
 </resources>

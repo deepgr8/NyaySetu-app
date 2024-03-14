@@ -21,6 +21,7 @@ import com.google.android.material.color.DynamicColors;
 
 public class MainActivity extends AppCompatActivity {
     TextToSpeech textToSpeech;
+    homeFragment homeFragment;
     private static final int MIC_PERMISSION_REQUEST_CODE = 100;
     @SuppressLint("MissingInflatedId")
     @Override
@@ -42,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 int itemId = menuItem.getItemId();
+                if (itemId==R.id.home){
+                    temp = new homeFragment();
+                    ((homeFragment) temp).showdataa();
+                }
                 if (itemId == R.id.advocate){
                     temp = new AdvocateFragment();
                 } else if (itemId==R.id.home) {
