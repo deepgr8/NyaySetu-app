@@ -77,7 +77,12 @@ public class homeFragment extends Fragment {
         homeBinding = FragmentHomeBinding.inflate(inflater, container, false);
         TextPaint paint = homeBinding.greeting.getPaint();
         recentQueries = new ArrayList<>();
-        checkForQueries();
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("llm",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("ul",userlang);
+        editor.apply();
+        editor.commit();
+//        checkForQueries();
         setRetainInstance(true);
         homeBinding.scrollView.setVisibility(View.INVISIBLE);
         homeBinding.mute.setOnClickListener(view -> {

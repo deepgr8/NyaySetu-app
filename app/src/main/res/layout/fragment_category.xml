@@ -6,8 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CategoryFragment">
-
-
+    <FrameLayout
+        android:id="@+id/resultOfCategory"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,7 +40,8 @@
                     android:orientation="vertical">
 
                     <!-- Contents of your CardView -->
-                    <ImageView
+                    <ImageButton
+                        android:id="@+id/criminalLawBtn"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center_horizontal"
@@ -43,6 +50,7 @@
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="match_parent"
+                        android:id="@+id/crimeid"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
@@ -66,7 +74,8 @@
                     android:orientation="vertical">
 
                     <!-- Contents of your CardView -->
-                    <ImageView
+                    <ImageButton
+                        android:id="@+id/civilLawbtn"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center_horizontal"
@@ -75,6 +84,7 @@
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="match_parent"
+                        android:id="@+id/civilid"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
@@ -104,7 +114,8 @@
                     android:orientation="vertical">
 
                     <!-- Contents of your CardView -->
-                    <ImageView
+                    <ImageButton
+                        android:id="@+id/companyLawBtn"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center_horizontal"
@@ -114,6 +125,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:id="@+id/companyid"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
                         android:text="Company Law"
@@ -136,7 +148,8 @@
                     android:orientation="vertical">
 
                     <!-- Contents of your CardView -->
-                    <ImageView
+                    <ImageButton
+                        android:id="@+id/propertyLawbtn"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center_horizontal"
@@ -146,6 +159,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:id="@+id/propertyid"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
                         android:text="Property Law"
@@ -174,7 +188,8 @@
                     android:orientation="vertical">
 
                     <!-- Contents of your CardView -->
-                    <ImageView
+                    <ImageButton
+                        android:id="@+id/familyLawBtn"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center_horizontal"
@@ -186,6 +201,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
+                        android:id="@+id/familyid"
                         android:text="Family Law"
                         android:textSize="18dp" />
 
@@ -206,7 +222,8 @@
                     android:orientation="vertical">
 
                     <!-- Contents of your CardView -->
-                    <ImageView
+                    <ImageButton
+                        android:id="@+id/labourLawBtn"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center_horizontal"
@@ -218,6 +235,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
+                        android:id="@+id/labourid"
                         android:text="Labour Law"
                         android:textSize="18dp" />
 

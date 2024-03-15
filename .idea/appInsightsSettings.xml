@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.nyaysetu" />
+                  <option name="mobileSdkAppId" value="1:351368719023:android:1bf88df1c58fca8bfb025a" />
+                  <option name="projectId" value="nyaysetu-c6500" />
+                  <option name="projectNumber" value="351368719023" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
