@@ -67,8 +67,7 @@ public class SplashScreen extends AppCompatActivity {
         getotp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SplashScreen.this , MainActivity.class);
-                startActivity(intent);
+                Toast.makeText(SplashScreen.this, "It's on progress", Toast.LENGTH_SHORT).show();
             }
         });
         DynamicColors.applyToActivitiesIfAvailable((Application) getApplicationContext());
