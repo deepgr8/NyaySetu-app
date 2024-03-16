@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.translation.TranslationRequest;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -50,16 +51,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.StringTokenizer;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class homeFragment extends Fragment {
     FragmentHomeBinding homeBinding;
-    private static final String apiKey = "AIzaSyBanBCnl7DjDbZ8MeSFN9rv290bEZ1qMSM";
+    String translatinglang=null;
+    private static final String BASE_URL = "http://your-flask-api-url/";
+
+    private static final String apiKey = "AIzaSyBSdIOi7dkYK5sI8eEgqA1Xz3cSOWN52SI";
     TextToSpeech textToSpeech;
     private DatabaseReference databaseReference;
     private List<String> recentQueries;
     String spokenText = null;
-    String cont = "explain me in ";
+    String cont = "give a short brief according to indian constitution in easy way and also give suggestions what to do in ";
     String userlang = null;
 
 
@@ -84,10 +95,15 @@ public class homeFragment extends Fragment {
         editor.commit();
 //        checkForQueries();
         setRetainInstance(true);
+        if (!Objects.equals(userlang, languages[4])){
+            translatinglang = userlang;
+            userlang = languages[0];
+        }
         homeBinding.scrollView.setVisibility(View.INVISIBLE);
         homeBinding.mute.setOnClickListener(view -> {
                 if (textToSpeech.isSpeaking() && textToSpeech!=null) { // Optional check
                     textToSpeech.stop();
+
                 }
                 else{
                 Toast.makeText(getContext(), "continue", Toast.LENGTH_SHORT).show();
@@ -114,13 +130,17 @@ public class homeFragment extends Fragment {
         homeBinding.sendQuery.setOnClickListener(view -> {
             if (homeBinding.inputField1.getText() != null) {
                 if (tokenizer(homeBinding.inputField1.getText().toString())) {
+                    String abc = homeBinding.inputField1.getText().toString();
                     homeBinding.recentitemsContainer.setVisibility(View.INVISIBLE);
                     homeBinding.progressCircular.setVisibility(View.VISIBLE);
-                    result(homeBinding.inputField1.getText().toString() + cont + userlang,getContext());
-                } else {
-                    homeBinding.progressCircular.setVisibility(View.INVISIBLE);
+                    result(abc + cont + userlang, getContext());
+                }
+                if (!tokenizer(homeBinding.inputField1.getText().toString())){
                     failedToken();
                 }
+            }else {
+                homeBinding.progressCircular.setVisibility(View.INVISIBLE);
+                failedToken();
             }
         });
         // Todo: spinner item selected item:
@@ -203,14 +223,12 @@ public class homeFragment extends Fragment {
                             Map<String, Object> queryMap = (Map<String, Object>) querySnapshot.getValue();
                             if (queryMap != null && queryMap.containsKey("userInput")) {
                                 String userInput = (String) queryMap.get("userInput");
-                                String newInput = userInput.replace(cont+userlang," ");
-                                userInputList.add(newInput);
+                                userInputList.add(userInput);
                             }
                         }
                         updateUi(userInputList);
                     }
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     // Handle error
@@ -238,7 +256,6 @@ public class homeFragment extends Fragment {
         homeBinding.progressCircular.setVisibility(View.INVISIBLE);
         storeRecent(userinput,result);
         talkback(result);
-
     }
 
     private void storeRecent(String userinput, String result) {
@@ -249,6 +266,8 @@ public class homeFragment extends Fragment {
             databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(username).child("recents");
             String queryKey = databaseReference.push().getKey();
             Map<String, Object> recentMap = new HashMap<>();
+            userinput = userinput.replace(cont," ");
+            userinput = userinput.replace(userlang," ");
             recentMap.put("userInput", userinput);
             recentMap.put("result", result);
             databaseReference.child(queryKey).setValue(recentMap);
@@ -418,4 +437,5 @@ public class homeFragment extends Fragment {
             homeBinding.result.setText(userInputList.get(0));
         }
     }
+
 }
