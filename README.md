@@ -11,7 +11,6 @@ NyaySetu is an innovative Android application designed to simplify and enhance l
 - **Programming Language**: Java
 - **IDE**: Android Studio
 - **Backend API**: Retrofit
-- **Python**: For Generative AI API
 - **Database**: Firebase Realtime Database
 
 ---
