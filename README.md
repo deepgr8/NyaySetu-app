@@ -1,12 +1,33 @@
 # NyaySetu App
 A legal query app with AI-generated responses and bilingual support (English/Hindi).  
 [Demo](https://drive.google.com/drive/u/1/folders/1F90w6TWKlZAUsGSWCeX1IKRmoKjL7ocp)
-# Save the current content of the text document as a .md file
-
-file_path = "/mnt/data/NyaySetu_README.md"
-content = """# NyaySetu App
+# NyaySetu App
 
 NyaySetu is an innovative Android application designed to simplify and enhance legal query handling. It combines advanced data structures, AI-powered responses, and accessibility features to provide an intuitive and inclusive user experience.
+
+
+## 🛠️ Technologies Used
+
+- **Programming Language**: Java
+- **IDE**: Android Studio
+- **Backend API**: Retrofit
+- **Python**: For Generative AI API
+- **Database**: Firebase Realtime Database
+
+---
+
+## 🚀 Installation
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/yourusername/NyaySetu.git
+   ```
+
+2. Open the project in Android Studio.
+
+3. Sync the Gradle files and resolve any dependencies.
+
+4. Run the app on an Android device or emulator.
 
 ---
 
@@ -30,19 +51,42 @@ NyaySetu is an innovative Android application designed to simplify and enhance l
 
 ---
 
-## 🛠️ Technologies Used
+## 📸 Screenshots
 
-- **Programming Language**: Java
-- **IDE**: Android Studio
-- **Backend API**: Retrofit
-- **Python**: For Generative AI API
-- **Database**: Firebase Realtime Database
+### Home Screen
+![Home Screen](#)
+
+### Query Input
+![Query Input](#)
+
+### AI Response
+![AI Response](#)
+
+### Bilingual Chatbot
+![Bilingual Chatbot](#)
+
+### Search History
+![Search History](#)
 
 ---
 
-## 🚀 Installation
+## 🤝 Contribution
 
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/yourusername/NyaySetu.git
+Contributions are welcome! Please fork the repository and submit a pull request with your changes.
+
+---
+
+## 📜 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## 📧 Contact
+
+For any queries or support, please contact:
+
+**Developer**: Deepu Prajapati  
+**Email**: [Email](mailto:deepuprajapti5@gmail.com)  
+**LinkedIn**: [LinkedIn](www.linkedin.com/in/deepu-prajapati-00284a206)
 
