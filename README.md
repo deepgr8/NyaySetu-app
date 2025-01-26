@@ -20,7 +20,7 @@ NyaySetu is an innovative Android application designed to simplify and enhance l
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/NyaySetu.git
+   git clone (https://github.com/deepgr8/NyaySetu-app.git)
    ```
 
 2. Open the project in Android Studio.
