@@ -51,36 +51,12 @@ NyaySetu is an innovative Android application designed to simplify and enhance l
 
 ---
 
-## 📸 Screenshots
-
-### Home Screen
-![Home Screen](#)
-
-### Query Input
-![Query Input](#)
-
-### AI Response
-![AI Response](#)
-
-### Bilingual Chatbot
-![Bilingual Chatbot](#)
-
-### Search History
-![Search History](#)
-
----
-
 ## 🤝 Contribution
 
 Contributions are welcome! Please fork the repository and submit a pull request with your changes.
 
 ---
 
-## 📜 License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
 
 ## 📧 Contact
 
